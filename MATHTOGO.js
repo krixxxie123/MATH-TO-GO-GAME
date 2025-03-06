@@ -89,19 +89,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                checkAnswer(false);
+                checkAnswer(true); // Mark as incorrect due to timeout
             }
         }, 1000);
     }
 
-    function checkAnswer() {
+    function checkAnswer(timeout = false) {
         clearInterval(timer);
         let feedback = document.getElementById("feedback");
         let userAnswer = document.getElementById("answer").value.trim();
 
-        if (userAnswer === "") return; // Prevent empty input
-
-        if (parseFloat(userAnswer) === questions[currentQuestion].answer) {
+        if (timeout || userAnswer === "") {
+            feedback.textContent = `Time's up! Answer: ${questions[currentQuestion].answer}`;
+            feedback.style.color = "red";
+        } else if (parseFloat(userAnswer) === questions[currentQuestion].answer) {
             correctAnswers++;
             feedback.textContent = "Correct!";
             feedback.style.color = "green";
