@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #222;
+  color: white;
+}
+
+#game-container {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #333;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+#level-note {
+  font-size: 18px;
+  color: yellow;
+  margin-bottom: 20px;
+}
+
+#question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#answer {
+  padding: 10px;
+  font-size: 16px;
+  width: 100px;
+  text-align: center;
+}
+
+#timer {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+#feedback {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#stars-container {
+  display: none;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: white;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

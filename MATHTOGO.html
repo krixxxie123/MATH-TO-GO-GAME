@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math to Go</title>
+    <link rel="stylesheet" href="MATHTOGO.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Math to Go</h1>
+        <div id="total-stars">Total Stars: 0</div>
+
+        <div id="level-note"></div>
+
+        <div id="question-container">
+            <h2 id="level"></h2>
+            <p id="question-text"></p>
+            <input type="text" id="answer" autocomplete="off">
+            <button id="submitAnswer">Enter</button> <!-- Enter Button Added -->
+            <p id="timer"></p>
+            <p id="feedback"></p>
+        </div>
+
+        <div id="stars-container">
+            <p>Level Completed!</p>
+            <p id="stars"></p>
+            <button id="nextLevel">Next Level</button>
+            <button id="restartLevel">Replay Level</button>
+        </div>
+    </div>
+
+    <script src="MATHTOGO.js"></script>
+</body>
+</html>
