@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let questions = [];
     let timer;
     let timeLeft;
+    let lastEarnedStars = 0; // Store stars earned in the last level
 
     function loadProgress() {
         let savedProgress = localStorage.getItem("mathGameProgress");
@@ -24,21 +25,28 @@ document.addEventListener("DOMContentLoaded", function () {
     function generateQuestions() {
         questions = [];
         for (let i = 0; i < 5; i++) {
-            let num1 = Math.floor(Math.random() * 10) + 1;
-            let num2 = Math.floor(Math.random() * 10) + 1;
+            let num1 = Math.floor(Math.random() * 20) - 10;
+            let num2 = Math.floor(Math.random() * 20) - 10;
+            let operators = ["+", "-", "*", "/"];
+            let operator = operators[Math.floor(Math.random() * operators.length)];
             let questionText, answer;
 
-            if (level <= 15) {
+            if (operator === "+") {
                 questionText = `${num1} + ${num2} = ?`;
                 answer = num1 + num2;
-            } else if (level <= 50) {
-                num1 = Math.floor(Math.random() * 20) - 10;
-                num2 = Math.floor(Math.random() * 20) - 10;
+            } else if (operator === "-") {
                 questionText = `${num1} - ${num2} = ?`;
                 answer = num1 - num2;
+            } else if (operator === "*") {
+                num1 = Math.floor(Math.random() * 10) + 1;
+                num2 = Math.floor(Math.random() * 10) + 1;
+                questionText = `${num1} × ${num2} = ?`;
+                answer = num1 * num2;
             } else {
-                questionText = `Solve: ${num1}x = ${num1 * num2}`;
-                answer = num2;
+                num1 = (Math.floor(Math.random() * 10) + 1) * (Math.floor(Math.random() * 5) + 1);
+                num2 = Math.floor(Math.random() * 5) + 1;
+                questionText = `${num1} ÷ ${num2} = ?`;
+                answer = num1 / num2;
             }
 
             questions.push({ question: questionText, answer });
@@ -46,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showLevelNote() {
-        let example = level <= 15 ? "2 + 3 = 5" : level <= 50 ? "-4 + 2 = -2" : "Solve 3x = 9";
-        let noteText = `Level ${level}: Solve 5 problems.\nExample: ${example}`;
+        let example = "Mixed operations (e.g., 3 × 2, 6 ÷ 2, 4 + 5, 8 - 3)";
+        let noteText = `Level ${level}: Solve 5 problems using different operations.\nExample: ${example}`;
 
         document.getElementById("level-note").textContent = noteText;
         setTimeout(() => {
@@ -120,10 +128,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showResults() {
         document.getElementById("stars-container").style.display = "block";
-        let stars = correctAnswers === 5 ? 3 : correctAnswers >= 3 ? 2 : correctAnswers >= 1 ? 1 : 0;
-        totalStars += stars;
-        document.getElementById("stars").textContent = `You earned ${stars} stars!`;
+        lastEarnedStars = correctAnswers === 5 ? 3 : correctAnswers >= 3 ? 2 : correctAnswers >= 1 ? 1 : 0;
+        totalStars += lastEarnedStars;
+        document.getElementById("stars").textContent = `You earned ${lastEarnedStars} stars!`;
         saveProgress();
+
+        // Hide "Next Level" button if 0 stars, only show "Restart Level"
+        if (lastEarnedStars === 0) {
+            document.getElementById("nextLevel").style.display = "none";
+        } else {
+            document.getElementById("nextLevel").style.display = "block";
+        }
     }
 
     document.getElementById("nextLevel").addEventListener("click", () => {
